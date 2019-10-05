@@ -1,6 +1,7 @@
 package com.stetsko.servlet;
 
-import com.stetsko.service.UserService;
+import com.stetsko.entity.Content;
+import com.stetsko.service.ContentService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,17 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet ("/user")
-public class UserServlet extends HttpServlet {
+@WebServlet ("/content")
+public class ContentServlet extends HttpServlet {
 
-    private UserService userService = UserService.getInstance();
+    private ContentService contentService = ContentService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        long userId = Long.valueOf(req.getParameter("id"));
-        req.setAttribute("user", userService.get(userId));
+        long id = Long.valueOf(req.getParameter("id"));
+        Content content = contentService.find(id);
+        req.setAttribute("content", content.toString());
         req.getServletContext()
-                .getRequestDispatcher(".WEB-INF/jsp/user.jsp")
+                .getRequestDispatcher(".WEB-INF/jsp/content.jsp")
                 .forward(req, resp);
     }
 }
