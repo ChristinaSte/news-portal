@@ -1,6 +1,20 @@
 package com.stetsko.util;
 
-import com.stetsko.entity.*;
+import com.stetsko.entity.Administrator;
+import com.stetsko.entity.Category;
+import com.stetsko.entity.CategoryTranslation;
+import com.stetsko.entity.Comment;
+import com.stetsko.entity.CommentStatus;
+import com.stetsko.entity.Content;
+import com.stetsko.entity.ContentTranslation;
+import com.stetsko.entity.ContentType;
+import com.stetsko.entity.Editor;
+import com.stetsko.entity.ExtraField;
+import com.stetsko.entity.ExtraFieldType;
+import com.stetsko.entity.Lang;
+import com.stetsko.entity.Tag;
+import com.stetsko.entity.User;
+import com.stetsko.entity.UserRole;
 import lombok.experimental.UtilityClass;
 
 import java.time.LocalDateTime;
@@ -28,13 +42,13 @@ public class TestEntityBuilder {
     }
 
     public User buildUser(){
-        return User.builder()
-                .username("test")
-                .email("test@yandex.ru")
+        return User.userBuilder()
+                .username("user")
+                .email("user@yandex.ru")
                 .phone("+375251234567")
                 .password("testPass")
                 .active(true)
-                .role(UserRole.ADMINISTRATOR)
+                .role(UserRole.USER)
                 .registerDate(LocalDateTime.now())
                 .birthDate(LocalDateTime.now())
                 .name("TestUser")
@@ -42,10 +56,42 @@ public class TestEntityBuilder {
                 .build();
     }
 
+    public Editor buildEditor(){
+        return Editor.editorBuilder()
+                .username("editor")
+                .email("editor@yandex.ru")
+                .phone("+375259876543")
+                .password("testPass")
+                .active(true)
+                .role(UserRole.EDITOR)
+                .registerDate(LocalDateTime.now())
+                .birthDate(LocalDateTime.now())
+                .name("TestEditor")
+                .surname("TestEditorSurname")
+                .additionalInfo("Some additional test info")
+                .build();
+    }
+
+    public Administrator buildAdministrator(){
+        return Administrator.administratorBuilder()
+                .username("administrator")
+                .email("administrator@yandex.ru")
+                .phone("+375337654321")
+                .password("testPass")
+                .active(true)
+                .role(UserRole.ADMINISTRATOR)
+                .registerDate(LocalDateTime.now())
+                .birthDate(LocalDateTime.now())
+                .name("TestAdministrator")
+                .surname("TestAdministrator")
+                .additionalInfo("Some additional info")
+                .build();
+    }
+
     public Comment buildComment(){
         return Comment.builder()
                 .created(LocalDateTime.now())
-                .fullText("TestText")
+                .fullText("TestFullText")
                 .commentStatus(CommentStatus.PUBLISHED)
                 .build();
     }

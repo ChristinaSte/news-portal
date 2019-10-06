@@ -2,7 +2,7 @@ package com.stetsko.entity;
 
 import java.io.Serializable;
 
-public interface BaseEntity<PK extends Serializable> {
+public interface BaseEntity<ID extends Serializable> {
 
-    PK getId();
+    ID getId();
 }

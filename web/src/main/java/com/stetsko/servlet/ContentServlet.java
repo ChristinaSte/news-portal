@@ -9,8 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 
-@WebServlet ("/content")
+@WebServlet("/content")
 public class ContentServlet extends HttpServlet {
 
     private ContentService contentService = ContentService.getInstance();
@@ -18,10 +19,12 @@ public class ContentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long id = Long.valueOf(req.getParameter("id"));
-        Content content = contentService.find(id);
-        req.setAttribute("content", content.toString());
-        req.getServletContext()
-                .getRequestDispatcher(".WEB-INF/jsp/content.jsp")
-                .forward(req, resp);
+        Optional<Content> content = contentService.find(id);
+        if (content.isPresent()) {
+            req.setAttribute("content", content.toString());
+            req.getServletContext()
+                    .getRequestDispatcher(".WEB-INF/jsp/content.jsp")
+                    .forward(req, resp);
+        }
     }
 }
